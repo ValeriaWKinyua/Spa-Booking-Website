@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spa Appointment Booking</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">SpaBooking</div>
+            <ul class="nav-list">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#appointment">Book Appointment</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="banner">
+        <img src="glow.png" alt="Spa Banner" width= "100%" height= "700px" class="banner-image">
+    </header>
+
+    <div class="container" id="home">
+
+        <section id="about">
+            <h2>About Us</h2>
+            
+            <p>Welcome to our serene spa, where relaxation meets rejuvenation. Our skilled therapists and soothing ambiance ensure a delightful experience.</p>
+        </section>
+
+
+<section id="services">
+    <h2>Our Services</h2>
+
+    <div class="service-container">
+        <table class="service-table">
+            <tr>
+                <th>Service</th>
+                <th>Description</th>
+                <th>Prices(Shillings)</th>
+            </tr>
+            <tr>
+                <td>Massage</td>
+                <td>Relaxing full-body massage</td>
+                <td>2000</td>
+            </tr>
+            <tr>
+                <td>Facial</td>
+                <td>Revitalizing facial treatments</td>
+                <td>1500</td>
+            </tr>
+            <tr>
+                <td>Waxing</td>
+                <td>We'll take care of your "hairy" situation</td>
+                <td>900</td>
+            </tr> 
+        </table>
+       
+        <br></br>
+        <img src="web image 1.png" width="85%" height="700px" alt="Spa Service" class="service-image">
+    </div>
+</section>
+
+
+<br><section></section></br>
+        
+
+        <section id="appointment">
+            <h2>Book an Appointment</h2>
+            <form id="appointmentForm" onsubmit="return validateForm();" class="appointment-form">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="service">Select Service:</label>
+                    <select id="service" required>
+                        <option value="massage">Massage</option>
+                        <option value="facial">Facial</option>
+                        <option value="waxing">Waxing</option>
+                    </select>
+                </div>
+
+                
+        
+             <div class="form-group">
+                    <label for="date">Select Date:</label>
+                    <input type="date" id="date" required>
+                </div>
+    
+                <button type="submit" class="submit-btn">Book Now</button>
+            </form>
+        </section>
+     <script src="script.js"></script>
+
+           
+            <section id="quiz" class="quiz-container">
+                <h2>Spa Quiz</h2>
+                <div id="quiz-question" class="question"></div>
+                <div id="quiz-options" class="options"></div>
+                <button onclick="checkAnswer()">Submit Answer</button>
+                <p id="quiz-result"></p>
+            </section>
+        </div>
+    
+       
+        <script src="script.js"></script>
+        <script>
+            var quizData = [
+                {
+                    question: "What is the main focus of our spa?",
+                    options: ["Massage", "Facial", "Haircut"],
+                    answer: "Massage"
+                },
+                {
+                    question: "Which service is known for revitalizing facial treatments?",
+                    options: ["Massage", "Facial", "Haircut"],
+                    answer: "Facial"
+                },
+            ];
+    
+            var currentQuestion = 0;
+            var score = 0;
+    
+            function loadQuestion() {
+                var questionElement = document.getElementById("quiz-question");
+                var optionsElement = document.getElementById("quiz-options");
+                var currentQuizData = quizData[currentQuestion];
+    
+                questionElement.textContent = currentQuizData.question;
+                optionsElement.innerHTML = "";
+    
+                currentQuizData.options.forEach(function (option, index) {
+                    var optionLabel = String.fromCharCode(65 + index); 
+                    var optionHtml = '<label><input type="radio" name="quiz-option" value="' + option + '">' + optionLabel + '. ' + option + '</label>';
+                    optionsElement.innerHTML += optionHtml;
+                });
+            }
+    
+            function checkAnswer() {
+                var selectedOption = document.querySelector('input[name="quiz-option"]:checked');
+                var resultElement = document.getElementById("quiz-result");
+    
+                if (selectedOption) {
+                    var userAnswer = selectedOption.value;
+                    var currentQuizData = quizData[currentQuestion];
+    
+                    if (userAnswer === currentQuizData.answer) {
+                        score++;
+                        resultElement.textContent = "Correct!";
+                    } else {
+                        resultElement.textContent = "Incorrect. The correct answer is: " + currentQuizData.answer;
+                    }
+    
+                    currentQuestion++;
+                    if (currentQuestion < quizData.length) {
+                        loadQuestion();
+                    } else {
+                        resultElement.textContent += ` Quiz completed. Your score: ${score}/${quizData.length}`;
+                        document.getElementById("quiz-options").innerHTML = "";
+                        document.querySelector('input[name="quiz-option"]').disabled = true;
+                        document.querySelector('button').disabled = true;
+                    }
+                } else {
+                    resultElement.textContent = "Please select an option.";
+                }
+            }
+    
+            window.addEventListener("load", function () {
+                loadQuestion();
+            });
+        </script>
+    </body>
+    </html>
+    
+    <section id="contact">
+        <h2>Contact</h2>
+        <p>For inquiries, feel free to reach out to us:</p>
+        <address>
+            <strong>Luxe Spa</strong><br>
+           Justice Lane<br>
+           Gotham City<br>
+            Phone: +25400111222<br>
+            Email: luxe@gmail.com
+        </address>
+    </section>
+
+   <script src="scripts/script.js"></script>
+    <script>
+        function showThanks() {
+            document.getElementById("thanksMessage").style.display = "block";
+        }
+
+        function submitFindOut(event) {
+            event.preventDefault();
+            showThanks();
+        }
+    </script>
+     <footer>
+        <p>&copy;2023 Luxe Spar Booking</p>
+    </footer>
